@@ -7,7 +7,10 @@ func _ready():
 	call_deferred("set_state", states.idle)
 
 func _state_logic(delta):
-	pass
+	parent.horizontal_movement()
+	parent.apply_gravity(delta)
+	parent.apply_velocity()
+	
 
 func _get_transition(delta):
 	match state:
