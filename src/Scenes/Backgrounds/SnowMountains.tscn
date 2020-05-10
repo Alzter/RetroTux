@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/Backgrounds/snowmountain_bg.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Backgrounds/snowmountain_fg.png" type="Texture" id=2]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="BG" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.1, 0.1 )
+motion_mirroring = Vector2( 442, 0 )
+
+[node name="Sprite" type="Sprite" parent="BG"]
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0, -360 )
+
+[node name="FG" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.15, 0.15 )
+motion_mirroring = Vector2( 442, 0 )
+
+[node name="Sprite" type="Sprite" parent="FG"]
+texture = ExtResource( 2 )
+centered = false
+offset = Vector2( 0, -360 )
