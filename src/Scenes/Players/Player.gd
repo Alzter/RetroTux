@@ -9,7 +9,7 @@ const GRAVITY = 20
 func _physics_process(delta):
 	move_inputs()
 	velocity.y += GRAVITY * delta * 60
-	velocity = move_and_slide_with_snap(velocity, Vector2(0, -1), Vector2(0, 32))
+	velocity = move_and_slide_with_snap(velocity, Vector2(0, 32), Vector2(0, -1))
 
 func move_inputs():
 	velocity.x *= FRICTION
