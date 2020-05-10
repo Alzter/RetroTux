@@ -4,13 +4,13 @@ var velocity = Vector2()
 
 const MOVE_SPEED = 40
 const FRICTION = 0.8
-const GRAVITY = 20
+const GRAVITY = 24
 
 func apply_gravity(delta):
 	velocity.y += GRAVITY * delta * 60
 
 func apply_velocity():
-	velocity = move_and_slide_with_snap(velocity, Vector2(0, 16), Vector2(0, -1))
+	velocity = move_and_slide_with_snap(velocity, Vector2(0, 32), Vector2(0, -1))
 
 func horizontal_movement():
 	velocity.x *= FRICTION
