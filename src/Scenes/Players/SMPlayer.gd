@@ -8,6 +8,7 @@ func _ready():
 	call_deferred("set_state", "idle")
 
 func _state_logic(delta):
+	parent.hitbox_update()
 	_jump_inputs()
 	parent.move_input()
 	parent.apply_gravity(delta)

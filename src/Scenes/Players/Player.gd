@@ -39,3 +39,13 @@ func move_input():
 func camera_update():
 	position.x = clamp(position.x, camera.limit_left + 8, camera.limit_right - 8)
 	camera.position = position
+
+func hitbox_update():
+	var floor_normal = $SlopeDetector.get_collision_normal()
+	var on_slope = int(floor_normal != Vector2(0, -1) and (is_on_floor() or was_on_floor))
+	
+	$Ray1.disabled = !on_slope
+	$Ray2.disabled = !on_slope
+	$Ray3.disabled = !on_slope
+	$HitboxSlope.disabled = !on_slope
+	$Hitbox.disabled = on_slope

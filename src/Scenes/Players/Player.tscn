@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Sprites/Creatures/Players/Tux/test.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Players/Player.gd" type="Script" id=2]
@@ -14,6 +14,9 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 12 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8, 16 )
 
 [sub_resource type="RayShape2D" id=3]
 length = 16.0
@@ -37,20 +40,30 @@ process_mode = 0
 wait_time = 0.5
 one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="SlopeDetector" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 32 )
+
+[node name="HitboxSlope" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -4 )
 shape = SubResource( 4 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource( 5 )
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
-position = Vector2( 8, 0 )
-shape = SubResource( 3 )
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+[node name="Ray1" type="CollisionShape2D" parent="."]
 position = Vector2( -8, 0 )
 shape = SubResource( 3 )
+disabled = true
+
+[node name="Ray2" type="CollisionShape2D" parent="."]
+shape = SubResource( 3 )
+disabled = true
+
+[node name="Ray3" type="CollisionShape2D" parent="."]
+position = Vector2( 8, 0 )
+shape = SubResource( 3 )
+disabled = true
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
