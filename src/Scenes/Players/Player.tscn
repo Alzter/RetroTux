@@ -13,10 +13,10 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 8, 12 )
+extents = Vector2( 8, 11 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 8, 16 )
+extents = Vector2( 8, 15 )
 
 [sub_resource type="RayShape2D" id=3]
 length = 16.0
@@ -45,10 +45,11 @@ enabled = true
 cast_to = Vector2( 0, 32 )
 
 [node name="HitboxSlope" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -4 )
+position = Vector2( 0, -3 )
 shape = SubResource( 4 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
 shape = SubResource( 5 )
 
 [node name="Ray1" type="CollisionShape2D" parent="."]
