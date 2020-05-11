@@ -3,7 +3,7 @@ class_name StateMachine
 
 var state = null
 var previous_state = null
-var states = {}
+var states = []
 
 onready var parent = get_parent()
 
@@ -11,7 +11,7 @@ func _physics_process(delta):
 	if state != null:
 		_state_logic(delta)
 		var transition = _get_transition(delta)
-		if transition != null:
+		if transition != null and transition != state:
 			set_state(transition)
 
 func _state_logic(delta):
@@ -36,4 +36,4 @@ func set_state(new_state):
 		_enter_state(new_state, previous_state)
 
 func add_state(state_name):
-	states[state_name] = states.size()
+	states.append(state_name)

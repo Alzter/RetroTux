@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var velocity = Vector2()
-var jumping = true
+var snap = false
 var was_on_floor = false
 
 onready var coyote_timer = $CoyoteTimer
@@ -12,16 +12,18 @@ const GRAVITY = 10
 const JUMP_HEIGHT = 340
 
 func apply_gravity(delta):
-	velocity.y += GRAVITY * delta * 60
-	
-	if velocity.y > 0:
-		jumping = false
+	if coyote_timer.is_stopped():
+		velocity.y += GRAVITY * delta * 60
+		
+		if velocity.y > 0:
+			snap = true
 
 func apply_velocity():
-	var snap_amount = Vector2(0, int(!jumping) * 32)
+	var snap_amount = Vector2(0, int(snap) * 32)
 	
 	was_on_floor = is_on_floor()
 	velocity = move_and_slide_with_snap(velocity, snap_amount, Vector2(0, -1))
+	print(snap)
 
 func move_input():
 	velocity.x *= FRICTION

@@ -5,59 +5,67 @@ func _ready():
 	add_state("run")
 	add_state("jump")
 	add_state("fall")
-	call_deferred("set_state", states.idle)
+	call_deferred("set_state", "idle")
 
 func _state_logic(delta):
 	parent.move_input()
 	parent.apply_gravity(delta)
 	parent.apply_velocity()
 	get_tree().current_scene.get_node("Camera2D").position = parent.position
+	parent.get_node("Label").text = str(state)
 
 func _input(event):
-	if Input.is_action_pressed("jump") and ([states.idle, states.run].has(state) or !parent.coyote_timer.has_stopped()):
+	if Input.is_action_pressed("jump") and ((state == "idle" or state == "run") or !parent.coyote_timer.is_stopped()):
 		parent.coyote_timer.stop()
 		parent.velocity.y = -parent.JUMP_HEIGHT
-		parent.jumping = true
+		parent.snap = false
 	
 	# Jump cancelling
-	if state == states.jump:
+	if state == "jump":
 		if !Input.is_action_pressed("jump"):
 			parent.velocity.y = 0
 
 func _get_transition(delta):
 	match state:
-		states.idle:
+		"idle":
 			if !parent.is_on_floor():
-				return states.jump
+				return _jump_state()
 			elif parent.velocity.x != 0:
-				return states.run
-		states.run:
+				return "run"
+		"run":
 			if !parent.is_on_floor():
-				return states.jump
+				return _jump_state()
 			elif parent.velocity.x == 0:
-				return states.idle
-		states.jump:
+				return "idle"
+		"jump":
 			if parent.is_on_floor():
-				return states.idle
-			if parent.velocity.y >= 0:
-				return states.fall
-		states.fall:
+				return "idle"
+			else:
+				return _jump_state()
+		"fall":
 			if parent.is_on_floor():
-				return states.idle
-			if parent.velocity.y < 0:
-				return states.jump
+				return "idle"
+			else:
+				return _jump_state()
 
 func _enter_state(new_state, old_state):
 	match new_state:
-		states.idle:
+		"idle":
 			pass
-		states.run:
+		"run":
 			pass
-		states.jump:
+		"jump":
 			pass
-		states.fall:
-			if !parent.is_on_floor() and parent.was_on_floor:
+		"fall":
+			if parent.was_on_floor:
 				parent.coyote_timer.start()
+				parent.velocity.y = 0
 
 func _exit_state(old_state, new_state):
 	pass
+
+func _jump_state():
+	if parent.velocity.y >= 0:
+		return "fall"
+	else:
+		return "jump"
