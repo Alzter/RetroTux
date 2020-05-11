@@ -6,11 +6,12 @@ var was_on_floor = false
 
 onready var coyote_timer = $CoyoteTimer
 onready var jump_buffer = $JumpBuffer
+onready var sprite = $AnimatedSprite
 onready var camera = get_tree().current_scene.get_node("Camera2D")
 
 const MOVE_SPEED = 40
 const FRICTION = 0.8
-const GRAVITY = 10
+const GRAVITY = 12
 const JUMP_HEIGHT = 340
 
 func apply_gravity(delta):
@@ -21,7 +22,7 @@ func apply_gravity(delta):
 			snap = true
 
 func apply_velocity():
-	var snap_amount = Vector2(0, int(snap) * 32)
+	var snap_amount = Vector2(int(snap) * sprite.scale.x * -3, int(snap) * 12)
 	
 	was_on_floor = is_on_floor()
 	velocity = move_and_slide_with_snap(velocity, snap_amount, Vector2(0, -1))
@@ -30,7 +31,7 @@ func move_input():
 	velocity.x *= FRICTION
 	var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
 	if move_direction != 0:
-		$AnimatedSprite.scale.x = move_direction
+		sprite.scale.x = move_direction
 	velocity.x += MOVE_SPEED * move_direction
 	if abs(velocity.x) < 6:
 		velocity.x = 0
