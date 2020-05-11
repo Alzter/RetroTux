@@ -13,7 +13,7 @@ func _state_logic(delta):
 	parent.move_input()
 	parent.apply_gravity(delta)
 	parent.apply_velocity()
-	parent.camera_update()
+	parent.camera_update(delta)
 	parent.get_node("Label").text = str(state)
 
 func _jump_inputs():
@@ -25,7 +25,7 @@ func _jump_inputs():
 	if parent.jump_buffer.time_left and ((state == "idle" or state == "run") or !parent.coyote_timer.is_stopped()):
 		parent.jump_buffer.stop()
 		parent.coyote_timer.stop()
-		parent.velocity.y = -parent.JUMP_HEIGHT
+		parent.velocity.y = -parent.jump_height
 		parent.snap = false
 	
 	# Jump cancelling

@@ -3,20 +3,30 @@ extends KinematicBody2D
 var velocity = Vector2()
 var snap = false
 var was_on_floor = false
+var offset = 0
+var camera_offset = 0
 
 onready var coyote_timer = $CoyoteTimer
 onready var jump_buffer = $JumpBuffer
 onready var sprite = $AnimatedSprite
 onready var camera = get_tree().current_scene.get_node("Camera2D")
 
+const CAMERA_OFFSET = 32
 const MOVE_SPEED = 40
 const FRICTION = 0.8
-const GRAVITY = 12
-const JUMP_HEIGHT = 325
+
+var gravity = 12 * 60
+var jump_height = 4.5 * 16
+var jump_height_max = 5.5 * 16
+
+func _ready():
+	jump_height = sqrt(2 * gravity * jump_height)
+	jump_height_max = sqrt(2 * gravity * jump_height_max)
+	camera.position = position
 
 func apply_gravity(delta):
 	if coyote_timer.is_stopped():
-		velocity.y += GRAVITY * delta * 60
+		velocity.y += gravity * delta
 		
 		if velocity.y > 0:
 			snap = true
@@ -29,16 +39,23 @@ func apply_velocity():
 
 func move_input():
 	velocity.x *= FRICTION
+	
 	var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
-	if move_direction != 0:
-		sprite.scale.x = move_direction
 	velocity.x += MOVE_SPEED * move_direction
 	if abs(velocity.x) < 6:
 		velocity.x = 0
+	
+	if move_direction != 0:
+		sprite.scale.x = move_direction
 
-func camera_update():
+func camera_update(delta):
 	position.x = clamp(position.x, camera.limit_left + 8, camera.limit_right - 8)
+	if abs(velocity.x) > 0:
+		offset += (velocity.x / abs(velocity.x))
+		offset = clamp(offset, -CAMERA_OFFSET, CAMERA_OFFSET)
+	camera_offset += (offset - camera_offset) / 3
 	camera.position = position
+	camera.position.x += camera_offset
 
 func hitbox_update():
 	var floor_normal = $SlopeDetector.get_collision_normal()

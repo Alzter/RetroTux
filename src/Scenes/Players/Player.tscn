@@ -37,7 +37,7 @@ one_shot = true
 
 [node name="JumpBuffer" type="Timer" parent="."]
 process_mode = 0
-wait_time = 0.5
+wait_time = 0.2
 one_shot = true
 
 [node name="SlopeDetector" type="RayCast2D" parent="."]
