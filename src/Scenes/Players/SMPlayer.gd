@@ -7,10 +7,10 @@ func _ready():
 	call_deferred("set_state", states.idle)
 
 func _state_logic(delta):
-	parent.horizontal_movement()
+	parent.move_input()
 	parent.apply_gravity(delta)
 	parent.apply_velocity()
-	
+	get_tree().current_scene.get_node("Camera2D").position = parent.position
 
 func _get_transition(delta):
 	match state:
