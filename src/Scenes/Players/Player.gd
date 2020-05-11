@@ -12,8 +12,8 @@ onready var sprite = $AnimatedSprite
 onready var camera = get_tree().current_scene.get_node("Camera2D")
 
 const CAMERA_OFFSET = 32
-const WALK_SPEED = 16 * 16 # Tiles per second
-const RUN_SPEED = 22 * 16 # Tiles per second
+const WALK_SPEED = 8 * 16 # Tiles per second
+const RUN_SPEED = 14 * 16 # Tiles per second
 const FRICTION = 0.8
 
 var gravity = 12 * 60
@@ -39,12 +39,12 @@ func apply_velocity():
 	velocity = move_and_slide_with_snap(velocity, snap_amount, Vector2(0, -1))
 
 func move_input():
-	velocity.x *= FRICTION
-	
 	var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
 	var speed = RUN_SPEED if Input.is_action_pressed("run") else WALK_SPEED
-	velocity.x = lerp(velocity.x, speed * move_direction, 1)
-	if abs(velocity.x) < 6:
+	if move_direction != 0 and velocity.x == 0:
+		velocity.x = WALK_SPEED * move_direction / 2
+	velocity.x = lerp(velocity.x, speed * move_direction, 0.1)
+	if abs(velocity.x) < 24:
 		velocity.x = 0
 	
 	if move_direction != 0:

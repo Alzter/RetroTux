@@ -23,8 +23,6 @@ func _jump_inputs():
 	elif !Input.is_action_pressed("jump"):
 		parent.jump_buffer.stop()
 	
-	print(str(parent.velocity.x, " ", parent.RUN_SPEED))
-	
 	if parent.jump_buffer.time_left and ((state == "idle" or state == "walk" or state == "run") or !parent.coyote_timer.is_stopped()):
 		parent.jump_buffer.stop()
 		parent.coyote_timer.stop()
