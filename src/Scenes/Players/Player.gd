@@ -12,7 +12,7 @@ onready var camera = get_tree().current_scene.get_node("Camera2D")
 const MOVE_SPEED = 40
 const FRICTION = 0.8
 const GRAVITY = 12
-const JUMP_HEIGHT = 340
+const JUMP_HEIGHT = 325
 
 func apply_gravity(delta):
 	if coyote_timer.is_stopped():
