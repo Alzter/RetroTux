@@ -6,6 +6,7 @@ var was_on_floor = false
 
 onready var coyote_timer = $CoyoteTimer
 onready var jump_buffer = $JumpBuffer
+onready var camera = get_tree().current_scene.get_node("Camera2D")
 
 const MOVE_SPEED = 40
 const FRICTION = 0.8
@@ -33,3 +34,7 @@ func move_input():
 	velocity.x += MOVE_SPEED * move_direction
 	if abs(velocity.x) < 6:
 		velocity.x = 0
+
+func camera_update():
+	position.x = clamp(position.x, camera.limit_left + 8, camera.limit_right - 8)
+	camera.position = position

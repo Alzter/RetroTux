@@ -45,6 +45,14 @@ shape = SubResource( 2 )
 position = Vector2( 0, -4 )
 shape = SubResource( 3 )
 
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2( 8, -4 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2( -8, -4 )
+shape = SubResource( 3 )
+
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5

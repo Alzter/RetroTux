@@ -12,7 +12,7 @@ func _state_logic(delta):
 	parent.move_input()
 	parent.apply_gravity(delta)
 	parent.apply_velocity()
-	get_tree().current_scene.get_node("Camera2D").position = parent.position
+	parent.camera_update()
 	parent.get_node("Label").text = str(state)
 
 func _jump_inputs():

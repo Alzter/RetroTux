@@ -8,9 +8,9 @@ extends Camera2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	position = get_tree().current_scene.get_node("Player").position
+	# Align camera limits to tile grid
+	# we should probably change this later
+	limit_left = round(limit_left / 16) * 16
+	limit_right = round(limit_right / 16) * 16
+	limit_top = round(limit_top / 16) * 16
+	limit_bottom = round(limit_bottom / 16) * 16
