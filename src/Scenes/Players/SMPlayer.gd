@@ -2,6 +2,7 @@ extends "res://Scenes/Master/StateMachine.gd"
 
 func _ready():
 	add_state("idle")
+	add_state("walk")
 	add_state("run")
 	add_state("jump")
 	add_state("fall")
@@ -22,11 +23,16 @@ func _jump_inputs():
 	elif !Input.is_action_pressed("jump"):
 		parent.jump_buffer.stop()
 	
-	if parent.jump_buffer.time_left and ((state == "idle" or state == "run") or !parent.coyote_timer.is_stopped()):
+	print(str(parent.velocity.x, " ", parent.RUN_SPEED))
+	
+	if parent.jump_buffer.time_left and ((state == "idle" or state == "walk" or state == "run") or !parent.coyote_timer.is_stopped()):
 		parent.jump_buffer.stop()
 		parent.coyote_timer.stop()
 		parent.play_sound("jump")
-		parent.velocity.y = -parent.jump_height
+		if abs(parent.velocity.x) - 0.1 >= parent.RUN_SPEED:
+			parent.velocity.y = -parent.jump_height_max
+		else:
+			parent.velocity.y = -parent.jump_height
 		parent.snap = false
 	
 	# Jump cancelling
@@ -38,24 +44,33 @@ func _get_transition(delta):
 	match state:
 		"idle":
 			if !parent.is_on_floor():
-				return _jump_state()
+				return jump_state()
 			elif parent.velocity.x != 0:
-				return "run"
-		"run":
+				return run_state()
+		"walk":
 			if !parent.is_on_floor():
-				return _jump_state()
+				return jump_state()
 			elif parent.velocity.x == 0:
 				return "idle"
+			else:
+				return run_state()
+		"run":
+			if !parent.is_on_floor():
+				return jump_state()
+			elif parent.velocity.x == 0:
+				return "idle"
+			else:
+				return run_state()
 		"jump":
 			if parent.is_on_floor():
 				return "idle"
 			else:
-				return _jump_state()
+				return jump_state()
 		"fall":
 			if parent.is_on_floor():
 				return "idle"
 			else:
-				return _jump_state()
+				return jump_state()
 
 func _enter_state(new_state, old_state):
 	match new_state:
@@ -73,8 +88,14 @@ func _enter_state(new_state, old_state):
 func _exit_state(old_state, new_state):
 	pass
 
-func _jump_state():
+func jump_state():
 	if parent.velocity.y >= 0:
 		return "fall"
 	else:
 		return "jump"
+
+func run_state():
+	if abs(parent.velocity.x) - 4 > parent.RUN_SPEED:
+		return "run"
+	else:
+		return "walk"
