@@ -28,7 +28,13 @@ script = ExtResource( 3 )
 frames = SubResource( 1 )
 
 [node name="CoyoteTimer" type="Timer" parent="."]
+process_mode = 0
 wait_time = 0.05
+one_shot = true
+
+[node name="JumpBuffer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.5
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

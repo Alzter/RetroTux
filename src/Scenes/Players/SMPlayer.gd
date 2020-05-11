@@ -8,14 +8,21 @@ func _ready():
 	call_deferred("set_state", "idle")
 
 func _state_logic(delta):
+	_jump_inputs()
 	parent.move_input()
 	parent.apply_gravity(delta)
 	parent.apply_velocity()
 	get_tree().current_scene.get_node("Camera2D").position = parent.position
 	parent.get_node("Label").text = str(state)
 
-func _input(event):
-	if Input.is_action_pressed("jump") and ((state == "idle" or state == "run") or !parent.coyote_timer.is_stopped()):
+func _jump_inputs():
+	if Input.is_action_just_pressed("jump"):
+		parent.jump_buffer.start()
+	elif !Input.is_action_pressed("jump"):
+		parent.jump_buffer.stop()
+	
+	if parent.jump_buffer.time_left and ((state == "idle" or state == "run") or !parent.coyote_timer.is_stopped()):
+		parent.jump_buffer.stop()
 		parent.coyote_timer.stop()
 		parent.velocity.y = -parent.JUMP_HEIGHT
 		parent.snap = false

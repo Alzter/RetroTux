@@ -5,6 +5,7 @@ var snap = false
 var was_on_floor = false
 
 onready var coyote_timer = $CoyoteTimer
+onready var jump_buffer = $JumpBuffer
 
 const MOVE_SPEED = 40
 const FRICTION = 0.8
