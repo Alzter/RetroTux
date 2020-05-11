@@ -27,6 +27,8 @@ func apply_velocity():
 func move_input():
 	velocity.x *= FRICTION
 	var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
+	if move_direction != 0:
+		$AnimatedSprite.scale.x = move_direction
 	velocity.x += MOVE_SPEED * move_direction
 	if abs(velocity.x) < 6:
 		velocity.x = 0
