@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/Creatures/Players/Tux/test.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Players/Player.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Players/SMPlayer.gd" type="Script" id=3]
+[ext_resource path="res://Sounds/jump.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/bigjump.wav" type="AudioStream" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -12,13 +14,13 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 11 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 8, 15 )
 
-[sub_resource type="RayShape2D" id=3]
+[sub_resource type="RayShape2D" id=4]
 length = 16.0
 
 [node name="Player" type="KinematicBody2D"]
@@ -46,24 +48,24 @@ cast_to = Vector2( 0, 32 )
 
 [node name="HitboxSlope" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -3 )
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 
 [node name="Ray1" type="CollisionShape2D" parent="."]
 position = Vector2( -8, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 disabled = true
 
 [node name="Ray2" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 disabled = true
 
 [node name="Ray3" type="CollisionShape2D" parent="."]
 position = Vector2( 8, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 disabled = true
 
 [node name="Label" type="Label" parent="."]
@@ -81,3 +83,12 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="jump" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 4 )
+pitch_scale = 1.38
+
+[node name="bigjump" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 5 )

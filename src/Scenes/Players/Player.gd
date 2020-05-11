@@ -12,10 +12,11 @@ onready var sprite = $AnimatedSprite
 onready var camera = get_tree().current_scene.get_node("Camera2D")
 
 const CAMERA_OFFSET = 32
-const MOVE_SPEED = 40
+const WALK_SPEED = 1.5 * 16
+const RUN_SPEED = 2.5 * 16
 const FRICTION = 0.8
 
-var gravity = 12 * 60
+var gravity = 10 * 60
 var jump_height = 4.5 * 16
 var jump_height_max = 5.5 * 16
 
@@ -41,7 +42,8 @@ func move_input():
 	velocity.x *= FRICTION
 	
 	var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
-	velocity.x += MOVE_SPEED * move_direction
+	if Input.is_action_pressed("run"): velocity.x += RUN_SPEED * move_direction
+	else: velocity.x += WALK_SPEED * move_direction
 	if abs(velocity.x) < 6:
 		velocity.x = 0
 	
@@ -66,3 +68,6 @@ func hitbox_update():
 	$Ray3.disabled = !on_slope
 	$HitboxSlope.disabled = !on_slope
 	$Hitbox.disabled = on_slope
+
+func play_sound(sound):
+	$SFX.get_node(sound).play()

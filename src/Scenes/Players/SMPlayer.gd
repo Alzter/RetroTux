@@ -25,6 +25,7 @@ func _jump_inputs():
 	if parent.jump_buffer.time_left and ((state == "idle" or state == "run") or !parent.coyote_timer.is_stopped()):
 		parent.jump_buffer.stop()
 		parent.coyote_timer.stop()
+		parent.play_sound("jump")
 		parent.velocity.y = -parent.jump_height
 		parent.snap = false
 	
