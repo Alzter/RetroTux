@@ -22,8 +22,7 @@ func apply_gravity(delta):
 			snap = true
 
 func apply_velocity():
-	var snap_amount = Vector2(int(snap) * sprite.scale.x * -1, int(snap) * 5)
-	print(snap_amount)
+	var snap_amount = Vector2(int(snap) * int(abs(velocity.x) > 2) * sprite.scale.x * -1, int(snap) * 5)
 	
 	was_on_floor = is_on_floor()
 	velocity = move_and_slide_with_snap(velocity, snap_amount, Vector2(0, -1))
