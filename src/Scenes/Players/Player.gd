@@ -23,7 +23,6 @@ func apply_velocity():
 	
 	was_on_floor = is_on_floor()
 	velocity = move_and_slide_with_snap(velocity, snap_amount, Vector2(0, -1))
-	print(snap)
 
 func move_input():
 	velocity.x *= FRICTION
