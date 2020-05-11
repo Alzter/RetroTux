@@ -28,8 +28,6 @@ config/icon="res://icon.png"
 
 window/size/width=640
 window/size/height=480
-window/size/test_width=1280
-window/size/test_height=700
 window/stretch/shrink=2.0
 
 [importer_defaults]

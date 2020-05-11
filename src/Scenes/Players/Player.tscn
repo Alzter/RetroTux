@@ -27,6 +27,9 @@ script = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 
+[node name="CoyoteTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -4 )
 shape = SubResource( 2 )
