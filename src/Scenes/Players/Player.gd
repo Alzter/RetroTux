@@ -22,7 +22,7 @@ func apply_gravity(delta):
 			snap = true
 
 func apply_velocity():
-	var snap_amount = Vector2(int(snap) * sprite.scale.x * -1, int(snap) * 6)
+	var snap_amount = Vector2(int(snap) * sprite.scale.x * -1, int(snap) * 5)
 	print(snap_amount)
 	
 	was_on_floor = is_on_floor()
