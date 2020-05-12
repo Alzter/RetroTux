@@ -36,7 +36,7 @@ func _jump_inputs():
 	# Jump cancelling
 	if state == "jump":
 		if !Input.is_action_pressed("jump"):
-			parent.velocity.y = 0
+			parent.velocity.y = 20
 
 func _get_transition(delta):
 	match state:
