@@ -62,7 +62,6 @@ func camera_update(delta):
 func hitbox_update():
 	$SlopeDetector.cast_to.x = 12 * sprite.scale.x
 	var floor_normal = $SlopeDetector.get_collision_normal()
-	print(floor_normal)
 	var on_slope = int(floor_normal != Vector2(0, -1) and (is_on_floor() or was_on_floor))
 	
 	$Ray1.disabled = !on_slope
