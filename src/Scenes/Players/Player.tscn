@@ -21,7 +21,7 @@ extents = Vector2( 8, 11 )
 extents = Vector2( 8, 15 )
 
 [sub_resource type="RayShape2D" id=4]
-length = 16.0
+length = 8.0
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -55,16 +55,17 @@ position = Vector2( 0, 1 )
 shape = SubResource( 3 )
 
 [node name="Ray1" type="CollisionShape2D" parent="."]
-position = Vector2( -8, 0 )
+position = Vector2( -8, 8 )
 shape = SubResource( 4 )
 disabled = true
 
 [node name="Ray2" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 9 )
 shape = SubResource( 4 )
 disabled = true
 
 [node name="Ray3" type="CollisionShape2D" parent="."]
-position = Vector2( 8, 0 )
+position = Vector2( 8, 9 )
 shape = SubResource( 4 )
 disabled = true
 

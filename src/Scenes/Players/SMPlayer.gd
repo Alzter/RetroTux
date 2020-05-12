@@ -10,14 +10,15 @@ func _ready():
 
 func _state_logic(delta):
 	parent.hitbox_update()
-	_jump_inputs()
-	parent.move_input()
+	if (state == "idle" or state == "walk" or state == "run" or state == "jump" or state == "fall"):
+		jump_input()
+		parent.move_input()
 	parent.apply_gravity(delta)
 	parent.apply_velocity()
 	parent.camera_update(delta)
 	parent.get_node("Label").text = str(state)
 
-func _jump_inputs():
+func jump_input():
 	if Input.is_action_just_pressed("jump"):
 		parent.jump_buffer.start()
 	elif !Input.is_action_pressed("jump"):
