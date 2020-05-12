@@ -12,8 +12,8 @@ onready var sprite = $AnimatedSprite
 onready var camera = get_tree().current_scene.get_node("Camera2D")
 
 const CAMERA_OFFSET = 32
-const WALK_SPEED = 8 * 16 # Tiles per second
-const RUN_SPEED = 14 * 16 # Tiles per second
+const WALK_SPEED = 6 * 16 # Tiles per second
+const RUN_SPEED = 12 * 16 # Tiles per second
 const FRICTION = 0.8
 
 var gravity = 12 * 60
@@ -43,7 +43,7 @@ func move_input():
 	var speed = RUN_SPEED if Input.is_action_pressed("run") else WALK_SPEED
 	if move_direction != 0 and velocity.x == 0:
 		velocity.x = WALK_SPEED * move_direction / 2
-	velocity.x = lerp(velocity.x, speed * move_direction, 0.1)
+	velocity.x = lerp(velocity.x, speed * move_direction, 0.08)
 	if abs(velocity.x) < 24:
 		velocity.x = 0
 	
@@ -60,7 +60,9 @@ func camera_update(delta):
 	camera.position.x += camera_offset
 
 func hitbox_update():
+	$SlopeDetector.cast_to.x = 12 * sprite.scale.x
 	var floor_normal = $SlopeDetector.get_collision_normal()
+	print(floor_normal)
 	var on_slope = int(floor_normal != Vector2(0, -1) and (is_on_floor() or was_on_floor))
 	
 	$Ray1.disabled = !on_slope

@@ -29,6 +29,10 @@ script = ExtResource( 2 )
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
 
+[node name="SlopeDetector" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 12, 32 )
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 
@@ -41,10 +45,6 @@ one_shot = true
 process_mode = 0
 wait_time = 0.2
 one_shot = true
-
-[node name="SlopeDetector" type="RayCast2D" parent="."]
-enabled = true
-cast_to = Vector2( 0, 32 )
 
 [node name="HitboxSlope" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -3 )

@@ -26,8 +26,8 @@ func _jump_inputs():
 	if parent.jump_buffer.time_left and ((state == "idle" or state == "walk" or state == "run") or !parent.coyote_timer.is_stopped()):
 		parent.jump_buffer.stop()
 		parent.coyote_timer.stop()
-		parent.play_sound("jump")
-		if abs(parent.velocity.x) - 0.1 >= parent.RUN_SPEED:
+		parent.play_sound("bigjump")
+		if state == "run":
 			parent.velocity.y = -parent.jump_height_max
 		else:
 			parent.velocity.y = -parent.jump_height
@@ -93,7 +93,7 @@ func jump_state():
 		return "jump"
 
 func run_state():
-	if abs(parent.velocity.x) - 4 > parent.RUN_SPEED:
+	if abs(parent.velocity.x) > parent.RUN_SPEED - 20:
 		return "run"
 	else:
 		return "walk"
